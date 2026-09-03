@@ -9,6 +9,7 @@
 | 2026-09-03 | Phase 3 | `docs/SOURCE_MATRIX.md` added with a verified least-squares source, a standard textbook reserve source, conditional official technical sources, APA/IU pinpoint-citation controls, and a no-secondary-citation rule. |
 | 2026-09-03 | Documentation | The current, evidence-backed requirements status is versioned as `docs/07-Anforderungsliste.md`. |
 | 2026-09-03 | Phase 4 | `docs/METHODOLOGY_AND_DESIGN.md` fixes the deterministic selection/mapping rules, SQLite model, component responsibilities, inheritance, exception boundaries, visualisation, and test strategy before product code. |
+| 2026-09-03 | Phase 5 | Commit `7e0afa9` implements archive extraction, typed loaders, deterministic SSE selection, exact-x mapping, temporary transactional SQLite, Bokeh HTML, JSON summary, and the CLI. Official archive run: y13/y24/y36/y40; 34 assigned, 66 unassigned; Ruff and pytest passed. |
 
 ## Commit rules
 
