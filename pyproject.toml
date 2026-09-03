@@ -9,9 +9,13 @@ description = "Reproducible ideal-function selection and test-point mapping"
 requires-python = ">=3.11,<3.14"
 dependencies = [
     "bokeh>=3.4,<4",
+    "numpy>=1.26,<3",
     "pandas>=2.2,<3",
     "sqlalchemy>=2.0,<3",
 ]
+
+[project.scripts]
+ideal-function-assignment = "ideal_function_assignment.runner:main"
 
 [project.optional-dependencies]
 dev = [
