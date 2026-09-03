@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img">
+  <title>Ideal-function assignment component architecture</title>
+  <desc>ApplicationRunner coordinates configuration, archive extraction, specialised loaders, selection, mapping, SQLite persistence, and Bokeh visualisation.</desc>
+  <style>
+    text { font-family: Arial, sans-serif; fill: #1f2937; }
+    .box { fill: #f8fafc; stroke: #334155; stroke-width: 1.5; rx: 8; }
+    .accent { fill: #e0f2fe; stroke: #0369a1; stroke-width: 1.5; rx: 8; }
+    .output { fill: #ecfdf5; stroke: #047857; stroke-width: 1.5; rx: 8; }
+    .line { stroke: #475569; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="36" y="36" font-size="22" font-weight="bold">Processing and component architecture</text>
+  <rect class="accent" x="470" y="60" width="260" height="62"/>
+  <text x="526" y="88" font-size="15" font-weight="bold">ApplicationRunner</text>
+  <text x="506" y="108" font-size="12">controlled execution order</text>
+
+  <rect class="box" x="55" y="190" width="190" height="62"/>
+  <text x="105" y="218" font-size="14" font-weight="bold">AppConfig</text>
+  <text x="81" y="238" font-size="12">paths and output targets</text>
+  <rect class="box" x="290" y="190" width="190" height="62"/>
+  <text x="335" y="218" font-size="14" font-weight="bold">DatasetArchive</text>
+  <text x="322" y="238" font-size="12">versioned source archive</text>
+  <rect class="box" x="525" y="190" width="190" height="62"/>
+  <text x="568" y="218" font-size="14" font-weight="bold">Loaders</text>
+  <text x="544" y="238" font-size="12">training, ideal, test rows</text>
+  <rect class="box" x="760" y="190" width="190" height="62"/>
+  <text x="792" y="218" font-size="14" font-weight="bold">FunctionSelector</text>
+  <text x="785" y="238" font-size="12">SSE and thresholds</text>
+  <rect class="box" x="995" y="190" width="150" height="62"/>
+  <text x="1025" y="218" font-size="14" font-weight="bold">PointMapper</text>
+  <text x="1023" y="238" font-size="12">mapping report</text>
+
+  <rect class="box" x="380" y="390" width="205" height="64"/>
+  <text x="411" y="418" font-size="14" font-weight="bold">DatabaseRepository</text>
+  <text x="410" y="439" font-size="12">transactional SQLite run</text>
+  <rect class="box" x="650" y="390" width="190" height="64"/>
+  <text x="692" y="418" font-size="14" font-weight="bold">BokehVisualizer</text>
+  <text x="687" y="439" font-size="12">interactive visual evidence</text>
+
+  <rect class="output" x="270" y="555" width="210" height="62"/>
+  <text x="331" y="583" font-size="14" font-weight="bold">SQLite database</text>
+  <text x="310" y="603" font-size="12">tables and result records</text>
+  <rect class="output" x="555" y="555" width="210" height="62"/>
+  <text x="615" y="583" font-size="14" font-weight="bold">Bokeh HTML</text>
+  <text x="586" y="603" font-size="12">panels and hover information</text>
+  <rect class="output" x="840" y="555" width="210" height="62"/>
+  <text x="884" y="583" font-size="14" font-weight="bold">JSON summary</text>
+  <text x="870" y="603" font-size="12">stable run-level evidence</text>
+
+  <path class="line" d="M600 122 L150 190"/>
+  <path class="line" d="M600 122 L385 190"/>
+  <path class="line" d="M600 122 L620 190"/>
+  <path class="line" d="M600 122 L855 190"/>
+  <path class="line" d="M600 122 L1070 190"/>
+  <path class="line" d="M480 221 L525 221"/>
+  <path class="line" d="M715 221 L760 221"/>
+  <path class="line" d="M715 233 L995 233"/>
+  <path class="line" d="M855 252 L480 390"/>
+  <path class="line" d="M1070 252 L480 420"/>
+  <path class="line" d="M855 252 L745 390"/>
+  <path class="line" d="M1070 252 L745 420"/>
+  <path class="line" d="M482 454 L375 555"/>
+  <path class="line" d="M745 454 L660 555"/>
+  <path class="line" d="M600 122 L945 555"/>
+  <text x="36" y="684" font-size="11">Source: Own representation.</text>
+</svg>

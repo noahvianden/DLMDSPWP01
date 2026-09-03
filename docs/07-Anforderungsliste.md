@@ -27,6 +27,8 @@ Statuskonvention:
 | Phase 5 | erledigt | Implementierung in Commit `7e0afa9`; offizieller Lauf, SQLite, Bokeh und JSON-Zusammenfassung erfolgreich. |
 | Phase 6 | erledigt | 28 Tests, 88 % Gesamt-Zeilenabdeckung, Ruff ohne Befund sowie erfolgreicher Neuinstallations- und CLI-Lauf im frischen Klon. |
 | Phase 7 | erledigt | Ergebnisnachweispaket in Commit `3c561df`: Analysemanifest, SQL-Prüfung, Ergebnistabellen und zwei statische SVG-Abbildungen. |
+| Phase 8 | übersprungen gemäß Nutzerentscheidung | Das Word-Dokumentgerüst besteht bereits und wird durch den Studierenden gepflegt. |
+| Phase 9 | in Bearbeitung | Englischer Volltextentwurf, Architekturabbildung, Tabellen- und Abbildungsreferenzen in `docs/WRITTEN_ASSIGNMENT_DRAFT.md`; Transfer, Seitenprüfung und finale Textkontrollen stehen noch aus. |
 
 Änderungen an Anforderungen werden in diesem Dokument nachvollziehbar festgehalten. Anforderungen dürfen nicht stillschweigend entfallen. Bei einem Konflikt gilt folgende Reihenfolge:
 
@@ -318,6 +320,8 @@ Die Abgabe ist erst fertig, wenn alle folgenden Bedingungen gleichzeitig erfüll
 
 ### Phase 9 – Arbeit Abschnitt für Abschnitt in finaler Reihenfolge schreiben
 
+**Tatsächlicher Arbeitsstand (3. September 2026):** Ein vollständiger englischer Erstentwurf für die Kapitel 1 bis 8 einschließlich Gleichungen, drei Tabellen, drei Abbildungsreferenzen und Literaturverzeichnis liegt in `docs/WRITTEN_ASSIGNMENT_DRAFT.md` vor. Der Entwurf umfasst 4.707 Wörter einschließlich Tabellen und Literaturverzeichnis. Er ist auf den 12–15-seitigen Master-Haupttext ausgelegt; die verbindliche Seitenmessung erfolgt erst nach dem Transfer in die vorhandene Word-Vorlage. Die Anforderungen dieser Phase bleiben bis zu dieser finalen Übertragung, Quellen- und Formprüfung bewusst offen.
+
 #### 1 Introduction
 
 - [ ] **A-149 – Problemkontext einordnen.** Auswahl passender Funktionen aus Kandidaten und reproduzierbare Verarbeitung heterogener Daten als konkretes Problem erklären; keine beliebige Python-Einleitung.
@@ -433,7 +437,7 @@ Die Abgabe ist erst fertig, wenn alle folgenden Bedingungen gleichzeitig erfüll
 - [ ] **A-220 – Anhangsverzeichnis nur bei tatsächlichem Anhang.** Jeder Anhang im Text referenziert, betitelt und logisch nummeriert.
 - [ ] **A-221 – Seitenlimit nicht umgehen.** Argumentativ notwendige Inhalte bleiben im 15-seitigen Haupttext.
 
-**Abnahme Phase 9:** Alle vorgesehenen Kapitel sind vollständig, logisch verbunden, quellenbasiert und innerhalb des Seitenbudgets; Forschungsfrage, Methodik, Ergebnisse, Diskussion und Conclusion bilden einen geschlossenen Argumentationsbogen.
+**Abnahme Phase 9: in Bearbeitung.** Der vollständige Entwurf bildet den geforderten Argumentationsbogen; die finale Word-Übertragung, Seitenprüfung und Abnahme der offenen Einzelanforderungen stehen noch aus.
 
 ### Phase 10 – Zitations-, Plagiats-, Sprach- und Formprüfung
 
@@ -642,3 +646,5 @@ Die Abgabe darf nicht erfolgen, solange mindestens einer dieser Punkte zutrifft:
 | 2026-09-03 | Phase-5-Anwendung implementiert und ausgeführt | Commit `7e0afa9`; offizielles versioniertes Archiv | Phase 5 erledigt: SQLite, Bokeh, JSON-Zusammenfassung und CLI erzeugen die verifizierten Ergebnisse y13/y24/y36/y40 sowie 34/66 Zuordnungen |
 | 2026-09-03 | Phase-6-Abnahme ausgeführt | Commit `07ce14e`; 28 Tests, Coverage, Ruff und frischer Klon | Phase 6 erledigt; A-105 bis A-128 mit konkreten Test- und Ausführungsnachweisen aktualisiert |
 | 2026-09-03 | Phase-7-Ergebnisnachweispaket eingefroren | Commit `3c561df`; Manifest, SQL-Prüfung, Tabellen und SVG-Abbildungen | Phase 7 erledigt; alle berichteten Zahlen und Abbildungen sind auf Analyse-Commit `2102504` zurückführbar |
+| 2026-09-03 | Phase 8 übersprungen | ausdrückliche Nutzerentscheidung | Das Word-Dokumentgerüst besteht bereits; Phase 9 liefert nur den übertragbaren Manuskripttext |
+| 2026-09-03 | Phase-9-Erstentwurf erstellt | `docs/WRITTEN_ASSIGNMENT_DRAFT.md`; 4.707 Wörter einschließlich Tabellen und Literaturverzeichnis | Kapitel 1–8, Referenzen, Gleichungen, Tabellen und Abbildungsreferenzen liegen vor; Word-Transfer und finale Längen-/Formprüfung bleiben offen |
