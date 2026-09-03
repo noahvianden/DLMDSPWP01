@@ -24,6 +24,7 @@ Statuskonvention:
 | Phase 2 | erledigt gemäß Nutzerentscheidung | `docs/DATA_CONTRACT.md`; keine separate manuelle Datenprüfung und keine synthetischen Fixtures. |
 | Phase 3 | erledigt | `docs/SOURCE_MATRIX.md` mit verifizierten Quellen und Fundstellen. |
 | Phase 4 | erledigt | `docs/METHODOLOGY_AND_DESIGN.md` mit Regeln, Architektur und Teststrategie. |
+| Phase 5 | erledigt | Implementierung in Commit `7e0afa9`; offizieller Lauf, SQLite, Bokeh und JSON-Zusammenfassung erfolgreich. |
 
 Änderungen an Anforderungen werden in diesem Dokument nachvollziehbar festgehalten. Anforderungen dürfen nicht stillschweigend entfallen. Bei einem Konflikt gilt folgende Reihenfolge:
 
@@ -221,30 +222,30 @@ Die Abgabe ist erst fertig, wenn alle folgenden Bedingungen gleichzeitig erfüll
 
 ### Phase 5 – Anwendung in festgelegter Reihenfolge implementieren
 
-- [ ] **A-083 – Konfiguration implementieren.** Pfade, Datenbankziel, Ausgabeverzeichnis und Logging zentral, validierbar und ohne fest codierte persönliche Pfade verwalten.
-- [ ] **A-084 – Exception-Klassen implementieren.** Klare Fehlermeldungen mit Ursache und betroffener Datei/Funktion; Exception-Chaining verwenden.
-- [ ] **A-085 – Basisklasse für Loader implementieren.** Gemeinsame Dateiexistenz-, Header-, Datentyp-, Fehlwert- und Duplikatprüfungen.
-- [ ] **A-086 – Spezialisierte Loader implementieren.** Trainings-, Ideal- und Testregeln getrennt ergänzen; Liskov-konformes Verhalten sicherstellen.
-- [ ] **A-087 – Datenbankkomponente implementieren.** SQLAlchemy-Engine, Metadaten/Tabellen, Transaktionen und deterministische Neuanlage beziehungsweise Ersetzung.
-- [ ] **A-088 – Trainingstabelle schreiben.** Exakt 400 Zeilen und fünf Fachspalten nach erfolgreicher Validierung.
-- [ ] **A-089 – Ideal-Tabelle schreiben.** Exakt 400 Zeilen und 51 Fachspalten nach erfolgreicher Validierung.
-- [ ] **A-090 – SSE-Berechnung implementieren.** Nach x ausgerichtet, vektorisiert mit Pandas, ohne vorzeitige Rundung.
-- [ ] **A-091 – Ideal-Funktionen auswählen.** Vier Ergebnisse einschließlich SSE und Maximalabweichung erzeugen; deterministische Tie-Regel anwenden.
-- [ ] **A-092 – Testpunkt-Mapper implementieren.** Punkte zeilenweise einlesen, alle vier Kandidaten prüfen, Mehrfachtrefferregel anwenden und Nichttreffer zählen.
-- [ ] **A-093 – Ergebnistabelle schreiben.** Ausschließlich erfolgreiche Zuordnungen mit `x`, `y`, `delta_y`, `ideal_function`; wiederholte x-Werte nicht verlieren.
-- [ ] **A-094 – Laufzusammenfassung erzeugen.** Zeilenzahlen, gewählte Funktionen, SSE, Maximalabweichung, Grenzwerte, zugeordnete und nicht zugeordnete Punkte ausgeben.
-- [ ] **A-095 – Bokeh-Visualisierung implementieren.** Einheitliche Achsenbeschriftungen, Legende, Farb-/Symbolkodierung, Hover-Informationen und gut lesbare Skalierung.
-- [ ] **A-096 – Große Wertebereiche berücksichtigen.** Darstellungen so aufteilen oder skalieren, dass kleine Funktionswerte nicht durch Funktionen mit sehr großen y-Werten unlesbar werden.
-- [ ] **A-097 – Abweichung sichtbar machen.** Abweichungen als Hover-Wert, Segment, separates Panel oder begründete Kombination darstellen; keine dekorative Grafik ohne Analysewert.
-- [ ] **A-098 – Ausgabeformat implementieren.** Interaktives Bokeh-HTML reproduzierbar erzeugen; für die Arbeit zusätzlich hochwertige statische Exportabbildungen vorbereiten.
-- [ ] **A-099 – Orchestrator/CLI implementieren.** Ein dokumentierter Befehl führt Validierung, Datenbankaufbau, Auswahl, Mapping und Visualisierung in korrekter Reihenfolge aus.
-- [ ] **A-100 – Logging implementieren.** Informative Statusmeldungen und aussagekräftige Fehler; keine Rohdatenflut und keine verschluckten Ausnahmen.
-- [ ] **A-101 – Docstrings vervollständigen.** Jedes Modul, jede öffentliche Klasse, Methode und Funktion mit Zweck, Parametern, Rückgabewert und relevanten Exceptions dokumentieren.
-- [ ] **A-102 – Kommentare prüfen.** Nur nicht offensichtliche fachliche Entscheidungen kommentieren; veraltete oder den Code bloß wiederholende Kommentare entfernen.
-- [ ] **A-103 – README vervollständigen.** Zweck, Voraussetzungen, Installation, Datenablage, Ausführung, Tests, Ausgaben, Architekturüberblick, Repository-Struktur und Troubleshooting.
-- [ ] **A-104 – Keine Notebook-Abhängigkeit.** Hauptlösung als ausführbares Python-Paket/Programm; Notebook höchstens ergänzend und nicht als einzige reproduzierbare Umsetzung.
+- [x] ~~**A-083 – Konfiguration implementieren.** Pfade, Datenbankziel, Ausgabeverzeichnis und Logging zentral, validierbar und ohne fest codierte persönliche Pfade verwalten.~~ Nachweis: `src/ideal_function_assignment/config.py` (`AppConfig`) and CLI configuration.
+- [x] ~~**A-084 – Exception-Klassen implementieren.** Klare Fehlermeldungen mit Ursache und betroffener Datei/Funktion; Exception-Chaining verwenden.~~ Nachweis: `src/ideal_function_assignment/exceptions.py` plus chained component-boundary errors.
+- [x] ~~**A-085 – Basisklasse für Loader implementieren.** Gemeinsame Dateiexistenz-, Header-, Datentyp-, Fehlwert- und Duplikatprüfungen.~~ Nachweis: `BaseCSVLoader` in `src/ideal_function_assignment/loaders.py`.
+- [x] ~~**A-086 – Spezialisierte Loader implementieren.** Trainings-, Ideal- und Testregeln getrennt ergänzen; Liskov-konformes Verhalten sicherstellen.~~ Nachweis: `TrainingDataLoader`, `IdealFunctionLoader`, and line-by-line `TestDataLoader`.
+- [x] ~~**A-087 – Datenbankkomponente implementieren.** SQLAlchemy-Engine, Metadaten/Tabellen, Transaktionen und deterministische Neuanlage beziehungsweise Ersetzung.~~ Nachweis: `DatabaseRepository` / `DatabaseRun` with SQLAlchemy Core and atomic replacement.
+- [x] ~~**A-088 – Trainingstabelle schreiben.** Exakt 400 Zeilen und fünf Fachspalten nach erfolgreicher Validierung.~~ Nachweis: official-archive run: 400 rows and five `training_data` columns.
+- [x] ~~**A-089 – Ideal-Tabelle schreiben.** Exakt 400 Zeilen und 51 Fachspalten nach erfolgreicher Validierung.~~ Nachweis: official-archive run: 400 rows and 51 `ideal_functions` columns.
+- [x] ~~**A-090 – SSE-Berechnung implementieren.** Nach x ausgerichtet, vektorisiert mit Pandas, ohne vorzeitige Rundung.~~ Nachweis: `FunctionSelector.select` aligns by x and calculates unrounded vectorised Pandas SSE.
+- [x] ~~**A-091 – Ideal-Funktionen auswählen.** Vier Ergebnisse einschließlich SSE und Maximalabweichung erzeugen; deterministische Tie-Regel anwenden.~~ Nachweis: official-archive run selects y13, y24, y36, and y40 with the documented values.
+- [x] ~~**A-092 – Testpunkt-Mapper implementieren.** Punkte zeilenweise einlesen, alle vier Kandidaten prüfen, Mehrfachtrefferregel anwenden und Nichttreffer zählen.~~ Nachweis: `PointMapper` and `TestDataLoader`; official run yields 34 assigned and 66 unassigned points.
+- [x] ~~**A-093 – Ergebnistabelle schreiben.** Ausschließlich erfolgreiche Zuordnungen mit `x`, `y`, `delta_y`, `ideal_function`; wiederholte x-Werte nicht verlieren.~~ Nachweis: SQLite check: `test_results` has x, y, delta_y, ideal_function and 34 successful rows.
+- [x] ~~**A-094 – Laufzusammenfassung erzeugen.** Zeilenzahlen, gewählte Funktionen, SSE, Maximalabweichung, Grenzwerte, zugeordnete und nicht zugeordnete Punkte ausgeben.~~ Nachweis: `RunSummary`, console summary, and `output/run_summary.json`.
+- [x] ~~**A-095 – Bokeh-Visualisierung implementieren.** Einheitliche Achsenbeschriftungen, Legende, Farb-/Symbolkodierung, Hover-Informationen und gut lesbare Skalierung.~~ Nachweis: `BokehVisualizer` creates panels, legend, colour/marker coding, axes, and hover fields.
+- [x] ~~**A-096 – Große Wertebereiche berücksichtigen.** Darstellungen so aufteilen oder skalieren, dass kleine Funktionswerte nicht durch Funktionen mit sehr großen y-Werten unlesbar werden.~~ Nachweis: four separate Bokeh figures retain independent y-axis scaling.
+- [x] ~~**A-097 – Abweichung sichtbar machen.** Abweichungen als Hover-Wert, Segment, separates Panel oder begründete Kombination darstellen; keine dekorative Grafik ohne Analysewert.~~ Nachweis: mapping hover fields and the separate assigned-deviation/threshold panel.
+- [x] ~~**A-098 – Ausgabeformat implementieren.** Interaktives Bokeh-HTML reproduzierbar erzeugen; für die Arbeit zusätzlich hochwertige statische Exportabbildungen vorbereiten.~~ Nachweis: reproducible Bokeh HTML plus static-export guidance in `README.md`.
+- [x] ~~**A-099 – Orchestrator/CLI implementieren.** Ein dokumentierter Befehl führt Validierung, Datenbankaufbau, Auswahl, Mapping und Visualisierung in korrekter Reihenfolge aus.~~ Nachweis: `ApplicationRunner`, `python -m ideal_function_assignment`, and console script.
+- [x] ~~**A-100 – Logging implementieren.** Informative Statusmeldungen und aussagekräftige Fehler; keine Rohdatenflut und keine verschluckten Ausnahmen.~~ Nachweis: concise status/error logging in the runner and CLI.
+- [x] ~~**A-101 – Docstrings vervollständigen.** Jedes Modul, jede öffentliche Klasse, Methode und Funktion mit Zweck, Parametern, Rückgabewert und relevanten Exceptions dokumentieren.~~ Nachweis: module, class, function, and public-method docstrings in the application package.
+- [x] ~~**A-102 – Kommentare prüfen.** Nur nicht offensichtliche fachliche Entscheidungen kommentieren; veraltete oder den Code bloß wiederholende Kommentare entfernen.~~ Nachweis: implementation review: explanatory docstrings only; no redundant line-by-line comments.
+- [x] ~~**A-103 – README vervollständigen.** Zweck, Voraussetzungen, Installation, Datenablage, Ausführung, Tests, Ausgaben, Architekturüberblick, Repository-Struktur und Troubleshooting.~~ Nachweis: completed installation, run, output, architecture, quality-check, and troubleshooting README.
+- [x] ~~**A-104 – Keine Notebook-Abhängigkeit.** Hauptlösung als ausführbares Python-Paket/Programm; Notebook höchstens ergänzend und nicht als einzige reproduzierbare Umsetzung.~~ Nachweis: executable package entry point `src/ideal_function_assignment/__main__.py`.
 
-**Abnahme Phase 5:** Der vollständige Funktionsumfang ist implementiert; ein lokaler sauberer Lauf erzeugt Datenbank, Zusammenfassung und Visualisierung ohne manuelle Zwischenschritte.
+**Abnahme Phase 5: erledigt.** Der vollständige Funktionsumfang ist implementiert; der erfolgreiche Lauf mit `data/dataset.zip` erzeugt ohne manuelle Zwischenschritte SQLite-Datenbank, Bokeh-HTML und JSON-Zusammenfassung. Nachweis: Commit `7e0afa9`, Ruff/pytest und offizielles Ergebnis-Orakel.
 
 ### Phase 6 – Tests, statische Qualität und technische Abnahme
 
@@ -636,3 +637,4 @@ Die Abgabe darf nicht erfolgen, solange mindestens einer dieser Punkte zutrifft:
 | 2026-09-03 | Separate manuelle Datenprüfung entfernt | ausdrückliche Nutzerentscheidung „Der Datensatz ist korrekt“ | Datenvertrag statt Audit; A-035 bis A-042 und A-046 bewusst gestrichen |
 | 2026-09-03 | Quellenmatrix angelegt und verifiziert | `docs/SOURCE_MATRIX.md` | Phase 3 erledigt; Quellen- und Fundstellenkontrollen vor dem Volltextentwurf verfügbar |
 | 2026-09-03 | Methodik und Systemdesign festgelegt | `docs/METHODOLOGY_AND_DESIGN.md` | Phase 4 erledigt; Implementierung folgt festgelegten Regeln und Verantwortlichkeiten |
+| 2026-09-03 | Phase-5-Anwendung implementiert und ausgeführt | Commit `7e0afa9`; offizielles versioniertes Archiv | Phase 5 erledigt: SQLite, Bokeh, JSON-Zusammenfassung und CLI erzeugen die verifizierten Ergebnisse y13/y24/y36/y40 sowie 34/66 Zuordnungen |
