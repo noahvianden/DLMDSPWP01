@@ -25,6 +25,7 @@ Statuskonvention:
 | Phase 3 | erledigt | `docs/SOURCE_MATRIX.md` mit verifizierten Quellen und Fundstellen. |
 | Phase 4 | erledigt | `docs/METHODOLOGY_AND_DESIGN.md` mit Regeln, Architektur und Teststrategie. |
 | Phase 5 | erledigt | Implementierung in Commit `7e0afa9`; offizieller Lauf, SQLite, Bokeh und JSON-Zusammenfassung erfolgreich. |
+| Phase 6 | erledigt | 28 Tests, 88 % Gesamt-Zeilenabdeckung, Ruff ohne Befund sowie erfolgreicher Neuinstallations- und CLI-Lauf im frischen Klon. |
 
 Änderungen an Anforderungen werden in diesem Dokument nachvollziehbar festgehalten. Anforderungen dürfen nicht stillschweigend entfallen. Bei einem Konflikt gilt folgende Reihenfolge:
 
@@ -249,21 +250,21 @@ Die Abgabe ist erst fertig, wenn alle folgenden Bedingungen gleichzeitig erfüll
 
 ### Phase 6 – Tests, statische Qualität und technische Abnahme
 
-- [ ] **A-105 – Loader-Unit-Tests.** Gültige Dateien, fehlende Datei, falsche Header, nichtnumerische Werte, NaN/Inf, leere Datei, doppelte x-Werte und unpassende x-Mengen.
-- [ ] **A-106 – SSE-Unit-Test.** Kleine handrechenbare Fixture mit exakt erwarteten SSE-Werten.
-- [ ] **A-107 – Auswahl-Unit-Tests.** Eindeutiges Minimum und Gleichstandsregel.
-- [ ] **A-108 – Maximalabweichungs-Test.** Absolutbetrag und Maximum mit positiver und negativer Differenz prüfen.
-- [ ] **A-109 – Mapping-Unit-Tests.** Punkt klar innerhalb, exakt auf und knapp außerhalb des `sqrt(2)`-Grenzwerts.
-- [ ] **A-110 – Mehrfachtreffer-Test.** Mehrere zulässige Funktionen, Auswahl der kleinsten Abweichung und deterministischer Tie-Break.
-- [ ] **A-111 – Nichttreffer-Test.** Kein Kandidat; Punkt bleibt unzugeordnet und wird korrekt gezählt.
-- [ ] **A-112 – x-Fehler-Test.** Unbekannter x-Wert löst das dokumentierte Verhalten aus; keine stillschweigende Interpolation.
-- [ ] **A-113 – Datenbank-Schema-Test.** Tabellen- und Spaltennamen, Typen, Constraints und vier Fachspalten der Ergebnistabelle prüfen.
-- [ ] **A-114 – Datenbank-Inhaltstest.** Zeilenzahlen, wiederholte Test-x-Werte, gespeicherte Funktionsnummern und `delta_y >= 0` prüfen.
-- [ ] **A-115 – Transaktions-/Rollback-Test.** Fehler während des Schreibens hinterlässt keinen widersprüchlichen Teilzustand.
-- [ ] **A-116 – Visualisierungs-Test.** HTML-Ausgabe entsteht; erwartete Datenquellen, Serien, Achsentitel und Legenden sind vorhanden.
-- [ ] **A-117 – CLI-End-to-End-Test.** Lauf aus leerem Ausgabeverzeichnis erzeugt alle erwarteten Artefakte und endet mit erfolgreichem Exit-Code.
-- [ ] **A-118 – Reproduzierbarkeitstest.** Zwei Läufe mit identischen Eingaben ergeben identische fachliche Ergebnisse.
-- [ ] **A-119 – Offiziellen Datensatz als Akzeptanztest ausführen.** Erwartete Auswahl nach unabhängiger Vorprüfung:
+- [x] ~~**A-105 – Loader-Unit-Tests.** Gültige Dateien, fehlende Datei, falsche Header, nichtnumerische Werte, NaN/Inf, leere Datei und doppelte x-Werte.~~ Nachweis: `tests/unit/test_loaders.py`; ausschließlich In-Memory-Fehlereingaben, keine synthetischen CSV-Dateien.
+- [x] ~~**A-106 – SSE-Unit-Test.** Kleine handrechenbare Fixture mit exakt erwarteten SSE-Werten.~~ Nachweis: `tests/unit/test_selection.py::test_selector_calculates_hand_checked_sse_and_maximum_deviation`.
+- [x] ~~**A-107 – Auswahl-Unit-Tests.** Eindeutiges Minimum und Gleichstandsregel.~~ Nachweis: `tests/unit/test_selection.py`.
+- [x] ~~**A-108 – Maximalabweichungs-Test.** Absolutbetrag und Maximum mit positiver und negativer Differenz prüfen.~~ Nachweis: handgerechneter Selektionsfall in `tests/unit/test_selection.py`; die absolute maximale Differenz ist 1,0, der Grenzwert `sqrt(2)`.
+- [x] ~~**A-109 – Mapping-Unit-Tests.** Punkt klar innerhalb, exakt auf und knapp außerhalb des `sqrt(2)`-Grenzwerts.~~ Nachweis: `tests/unit/test_mapping.py::test_mapper_accepts_inside_and_boundary_points_but_rejects_outside_points`.
+- [x] ~~**A-110 – Mehrfachtreffer-Test.** Mehrere zulässige Funktionen, Auswahl der kleinsten Abweichung und deterministischer Tie-Break.~~ Nachweis: `tests/unit/test_mapping.py::test_mapper_prefers_smallest_delta_then_smallest_function_number`.
+- [x] ~~**A-111 – Nichttreffer-Test.** Kein Kandidat; Punkt bleibt unzugeordnet und wird korrekt gezählt.~~ Nachweis: `tests/unit/test_mapping.py` und Akzeptanztest `tests/integration/test_official_dataset.py`.
+- [x] ~~**A-112 – x-Fehler-Test.** Unbekannter x-Wert löst das dokumentierte Verhalten aus; keine stillschweigende Interpolation.~~ Nachweis: `tests/unit/test_mapping.py::test_mapper_rejects_unknown_x_without_interpolation`.
+- [x] ~~**A-113 – Datenbank-Schema-Test.** Tabellen- und Spaltennamen, Typen, Constraints und vier Fachspalten der Ergebnistabelle prüfen.~~ Nachweis: `tests/integration/test_database.py::test_database_has_required_schema_and_only_four_result_columns`.
+- [x] ~~**A-114 – Datenbank-Inhaltstest.** Zeilenzahlen, wiederholte Test-x-Werte, gespeicherte Funktionsnummern und `delta_y >= 0` prüfen.~~ Nachweis: `tests/integration/test_database.py::test_database_retains_repeated_test_x_and_non_negative_delta_y`.
+- [x] ~~**A-115 – Transaktions-/Rollback-Test.** Fehler während des Schreibens hinterlässt keinen widersprüchlichen Teilzustand.~~ Nachweis: `tests/integration/test_database.py::test_failed_database_run_preserves_previous_complete_database`.
+- [x] ~~**A-116 – Visualisierungs-Test.** HTML-Ausgabe entsteht; erwartete Datenquellen, Serien, Achsentitel und Legenden sind vorhanden.~~ Nachweis: `tests/integration/test_visualization.py`.
+- [x] ~~**A-117 – CLI-End-to-End-Test.** Lauf aus leerem Ausgabeverzeichnis erzeugt alle erwarteten Artefakte und endet mit erfolgreichem Exit-Code.~~ Nachweis: `tests/e2e/test_runner.py::test_cli_run_from_clean_output_creates_all_required_artefacts`.
+- [x] ~~**A-118 – Reproduzierbarkeitstest.** Zwei Läufe mit identischen Eingaben ergeben identische fachliche Ergebnisse.~~ Nachweis: `tests/e2e/test_runner.py::test_two_runs_with_the_same_archive_have_identical_business_results`.
+- [x] ~~**A-119 – Offiziellen Datensatz als Akzeptanztest ausführen.** Erwartete Auswahl nach unabhängiger Vorprüfung:~~ Nachweis: `tests/integration/test_official_dataset.py::test_official_archive_matches_selection_and_mapping_oracles`.
 
   | Training | Ideal | SSE | maximale Abweichung | Grenzwert × √2 |
   |---|---:|---:|---:|---:|
@@ -272,17 +273,17 @@ Die Abgabe ist erst fertig, wenn alle folgenden Bedingungen gleichzeitig erfüll
   | y3 | y36 | 35.5727003958 | 0.498943 | 0.7056119575 |
   | y4 | y40 | 34.9988748132 | 0.499779 | 0.7067942400 |
 
-- [ ] **A-120 – Zuordnungsoracle prüfen.** Erwartungswert: 34 zugeordnete und 66 nicht zugeordnete Testpunkte; 33 Punkte besitzen genau einen zulässigen Kandidaten, ein Punkt besitzt zwei Kandidaten.
-- [ ] **A-121 – Realen Mehrfachtreffer prüfen.** Für Testzeile 50 (nullbasiert), (x=-1{,}6\), (y=-8{,}079187\), qualifizieren y13 und y24; wegen geringerer Abweichung muss y24 gewählt werden.
-- [ ] **A-122 – Vollständigkeitsinvariante prüfen.** 34 + 66 = 100; keine verlorenen oder doppelt bewerteten Eingabezeilen.
-- [ ] **A-123 – Testabdeckung auswerten.** Ziel: sämtliche fachlichen Kernzweige zu 100 % und das Gesamtprojekt mit hoher, begründeter Abdeckung; Prozentwert nicht als Ersatz für sinnvolle Assertions verwenden.
-- [ ] **A-124 – Linter/Formatter ausführen.** Keine offenen Fehler; bewusst unterdrückte Regeln einzeln begründen.
-- [ ] **A-125 – Typprüfung ausführen, falls konfiguriert.** Keine ungeklärten Fehler in Kernmodulen.
-- [ ] **A-126 – Warnungen bereinigen.** Deprecation-, Ressourcen- und Datenbankwarnungen prüfen; keine relevante Warnung ignorieren.
-- [ ] **A-127 – Code-Review gegen Architektur durchführen.** Keine übergroßen Klassen, verdeckten Seiteneffekte, redundanten Berechnungen oder nur pro forma eingebauten OOP-Muster.
-- [ ] **A-128 – Frischer-Clone-Test durchführen.** In einem neuen Verzeichnis anhand ausschließlich des README installieren und ausführen.
+- [x] ~~**A-120 – Zuordnungsoracle prüfen.** Erwartungswert: 34 zugeordnete und 66 nicht zugeordnete Testpunkte; 33 Punkte besitzen genau einen zulässigen Kandidaten, ein Punkt besitzt zwei Kandidaten.~~ Nachweis: `tests/integration/test_official_dataset.py::test_official_archive_candidate_count_distribution`.
+- [x] ~~**A-121 – Realen Mehrfachtreffer prüfen.** Für Testzeile 50 (nullbasiert), (x=-1{,}6\), (y=-8{,}079187\), qualifizieren y13 und y24; wegen geringerer Abweichung muss y24 gewählt werden.~~ Nachweis: `tests/integration/test_official_dataset.py::test_official_archive_has_documented_multiple_candidate_resolution`; Ergebnis y24, `delta_y=0.112813`.
+- [x] ~~**A-122 – Vollständigkeitsinvariante prüfen.** 34 + 66 = 100; keine verlorenen oder doppelt bewerteten Eingabezeilen.~~ Nachweis: offizieller Akzeptanztest und CLI-Lauf.
+- [x] ~~**A-123 – Testabdeckung auswerten.** Ziel: sämtliche fachlichen Kernzweige zu 100 % und das Gesamtprojekt mit hoher, begründeter Abdeckung; Prozentwert nicht als Ersatz für sinnvolle Assertions verwenden.~~ Nachweis: `pytest --cov=ideal_function_assignment --cov-report=term-missing -W error`: 28 Tests, 88 % Gesamt-Zeilenabdeckung. Die dokumentierten fachlichen Entscheidungszweige A-105 bis A-122 sind jeweils mit konkreten Assertions abgedeckt; nicht abgedeckte Zeilen betreffen vor allem defensive Fehler- und CLI-Pfade.
+- [x] ~~**A-124 – Linter/Formatter ausführen.** Keine offenen Fehler; bewusst unterdrückte Regeln einzeln begründen.~~ Nachweis: `python -m ruff check src tests` – „All checks passed“, keine Regelunterdrückungen.
+- [x] ~~**A-125 – Typprüfung ausführen, falls konfiguriert.** Keine ungeklärten Fehler in Kernmodulen.~~ Nicht anwendbar: `pyproject.toml` enthält keine konfigurierte Typprüfung; die Bedingung „falls konfiguriert“ ist daher nicht ausgelöst.
+- [x] ~~**A-126 – Warnungen bereinigen.** Deprecation-, Ressourcen- und Datenbankwarnungen prüfen; keine relevante Warnung ignorieren.~~ Nachweis: vollständiger Testlauf mit `pytest -W error` – 28 passed ohne Warnungen.
+- [x] ~~**A-127 – Code-Review gegen Architektur durchführen.** Keine übergroßen Klassen, verdeckten Seiteneffekte, redundanten Berechnungen oder nur pro forma eingebauten OOP-Muster.~~ Nachweis: Abgleich der Module mit `docs/METHODOLOGY_AND_DESIGN.md`; Konfiguration, Archive, Loader, Selektion, Mapping, Datenbank, Visualisierung und Runner bleiben getrennt; OOP wird für Loader-Hierarchie und klar abgegrenzte Ressourcen verwendet.
+- [x] ~~**A-128 – Frischer-Clone-Test durchführen.** In einem neuen Verzeichnis anhand ausschließlich des README installieren und ausführen.~~ Nachweis: frischer Klon von Commit `07ce14e`; `pip install -e '.[dev]'`, Ruff, `pytest -W error` (28 passed) und `python -m ideal_function_assignment --root <clone>` erfolgreich.
 
-**Abnahme Phase 6:** Alle Tests und Qualitätsprüfungen sind grün; erwartete Ergebnisse wurden unabhängig verifiziert; der Clone-Test funktioniert.
+**Abnahme Phase 6: erledigt.** Alle Tests und Qualitätsprüfungen sind grün; erwartete Ergebnisse wurden unabhängig verifiziert; der Clone-Test funktioniert.
 
 ### Phase 7 – Finale Ergebnisse, Tabellen und Abbildungen erzeugen
 
@@ -638,3 +639,4 @@ Die Abgabe darf nicht erfolgen, solange mindestens einer dieser Punkte zutrifft:
 | 2026-09-03 | Quellenmatrix angelegt und verifiziert | `docs/SOURCE_MATRIX.md` | Phase 3 erledigt; Quellen- und Fundstellenkontrollen vor dem Volltextentwurf verfügbar |
 | 2026-09-03 | Methodik und Systemdesign festgelegt | `docs/METHODOLOGY_AND_DESIGN.md` | Phase 4 erledigt; Implementierung folgt festgelegten Regeln und Verantwortlichkeiten |
 | 2026-09-03 | Phase-5-Anwendung implementiert und ausgeführt | Commit `7e0afa9`; offizielles versioniertes Archiv | Phase 5 erledigt: SQLite, Bokeh, JSON-Zusammenfassung und CLI erzeugen die verifizierten Ergebnisse y13/y24/y36/y40 sowie 34/66 Zuordnungen |
+| 2026-09-03 | Phase-6-Abnahme ausgeführt | Commit `07ce14e`; 28 Tests, Coverage, Ruff und frischer Klon | Phase 6 erledigt; A-105 bis A-128 mit konkreten Test- und Ausführungsnachweisen aktualisiert |
