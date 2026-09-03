@@ -16,4 +16,6 @@ The supplied `data/dataset.zip` archive is treated as a correct, immutable input
 - Extracted CSV files are local runtime files and remain ignored by Git.
 - The application assumes the supplied dataset is correct; no separate dataset-audit step is performed.
 - Calculations and mappings use the supplied `x` values directly. No interpolation or extrapolation is introduced.
+- Test-result rows require their own technical identity; `x` is not a unique result key.
+- Outputs use a stable, documented order. Floating-point values are not rounded during calculation; rounding is limited to display.
 - The implementation still rejects unavailable input files and propagates meaningful errors when a program run cannot proceed.
