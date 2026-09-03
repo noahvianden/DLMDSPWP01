@@ -4,14 +4,13 @@ This repository contains the reproducible Python implementation and tests for th
 
 ## Status
 
-Phase 1 establishes the project structure. The individual source dataset is not included in this repository.
+Phase 1 establishes the project structure. The official source archive is versioned as `data/dataset.zip`.
 
 ## Planned layout
 
 - `src/ideal_function_assignment/` – application package
 - `tests/unit/`, `tests/integration/`, `tests/e2e/` – test suites
-- `tests/fixtures/` – small synthetic test data only
-- `data/` – local ignored input data
+- `data/` – versioned source archive; extracted CSV files are ignored
 - `output/` – ignored generated results
 
 ## Development
@@ -22,4 +21,4 @@ python -m pip install -e '.[dev]'
 python -m pytest
 ```
 
-The official `data/dataset.zip` archive is versioned in this repository. Extract its CSV files locally into `data/` when running the application; extracted CSV files remain ignored.
+Extract `data/dataset.zip` locally into `data/` when running the application. The extracted CSV files remain ignored by Git.
