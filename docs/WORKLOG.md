@@ -10,6 +10,7 @@
 | 2026-09-03 | Documentation | The current, evidence-backed requirements status is versioned as `docs/07-Anforderungsliste.md`. |
 | 2026-09-03 | Phase 4 | `docs/METHODOLOGY_AND_DESIGN.md` fixes the deterministic selection/mapping rules, SQLite model, component responsibilities, inheritance, exception boundaries, visualisation, and test strategy before product code. |
 | 2026-09-03 | Phase 5 | Commit `7e0afa9` implements archive extraction, typed loaders, deterministic SSE selection, exact-x mapping, temporary transactional SQLite, Bokeh HTML, JSON summary, and the CLI. Official archive run: y13/y24/y36/y40; 34 assigned, 66 unassigned; Ruff and pytest passed. |
+| 2026-09-03 | Phase 6 | Technical acceptance: 28 tests passed with `-W error`; 88% total line coverage; Ruff passed. The official archive oracle confirms y13/y24/y36/y40, 34/66 assignments, and the y24 resolution of the real multiple candidate. A fresh clone was installed through the README and successfully ran Ruff, pytest, and the CLI. |
 
 ## Commit rules
 
