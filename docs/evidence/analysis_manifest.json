@@ -1,0 +1,29 @@
+{
+  "analysis_commit": "2102504779f95d4ca479d8ec9e1f3e942bc1aa57",
+  "analysis_timestamp_utc": "2026-09-03T13:54:24.151206+00:00",
+  "artefact_sha256": {
+    "boundary_cases.csv": "1501a172306637971b414ae0cf5eed00f734eb9d77ee2969b5f314bc91ca0be9",
+    "figures/assigned_deviations.svg": "fe2ea15158006fd58f924bf34384d47b3aa4cfd77d15ba0a78412a8701617c78",
+    "figures/selected_functions_and_mapping.svg": "044db91ef3800493faf442c4f1faf671a56475fa3d4fb5940d7e38cf4d918972",
+    "mapping_decisions.csv": "997522c6b3f01ee9462641d783d64dba4490bc123dc919c81941de788dd8226f",
+    "mapping_summary.csv": "6e5beae88257b206a444d5d970c1e4053dbeba8fa37c951c0f4046a5e71e48ad",
+    "selected_functions.csv": "f8a35b0eb0a46c4a0ce612854da6942191813e82175a776bb5ee0fd33bd68868",
+    "sqlite_verification.md": "71b0aeaafbc0dbdcf8af923c270e12d5eb338234d38a80e841b7265e6d9fffd8"
+  },
+  "dataset_archive": "data/dataset.zip",
+  "dataset_sha256": "829d38351e8878982d34c170f16a6351aa30bed8ff43e8a68b4ec026ebc45ed4",
+  "interpretation_guardrail": "The prescribed sqrt(2) factor is a mapping rule, not a statistical confidence measure.",
+  "package_version": "0.1.0",
+  "python_version": "3.12.13",
+  "result_summary": {
+    "assigned_count": 34,
+    "selected_ideal_functions": [
+      13,
+      24,
+      36,
+      40
+    ],
+    "test_row_count": 100,
+    "unassigned_count": 66
+  }
+}
