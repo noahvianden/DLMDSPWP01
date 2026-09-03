@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# DLMDSPWP01 local data and generated artefacts
+data/*.csv
+# The official assignment archive is intentionally versioned in `data/`.
+output/*
+*.sqlite
+*.db
+!data/.gitkeep
+!output/.gitkeep
