@@ -23,6 +23,7 @@ Statuskonvention:
 | Phase 1 | Baseline erledigt; einzelne Dokumentations-/Ausbaupunkte offen | Öffentliche Repository-Basis, Versionierung, Baseline-Test und Linter erfolgreich. |
 | Phase 2 | erledigt gemäß Nutzerentscheidung | `docs/DATA_CONTRACT.md`; keine separate manuelle Datenprüfung und keine synthetischen Fixtures. |
 | Phase 3 | erledigt | `docs/SOURCE_MATRIX.md` mit verifizierten Quellen und Fundstellen. |
+| Phase 4 | erledigt | `docs/METHODOLOGY_AND_DESIGN.md` mit Regeln, Architektur und Teststrategie. |
 
 Änderungen an Anforderungen werden in diesem Dokument nachvollziehbar festgehalten. Anforderungen dürfen nicht stillschweigend entfallen. Bei einem Konflikt gilt folgende Reihenfolge:
 
@@ -191,52 +192,32 @@ Die Abgabe ist erst fertig, wenn alle folgenden Bedingungen gleichzeitig erfüll
 
 ### Phase 4 – Methodik und Systemdesign vor der Implementierung festlegen
 
-- [ ] **A-059 – Notation definieren.** (x_i): x-Wert; (t_j(x_i)): Wert der Trainingsfunktion (j\); (f_k(x_i)): Wert der Ideal-Funktion (k\); (p=(x,y)): Testpunkt.
-- [ ] **A-060 – Auswahlkriterium definieren.** Für jede Trainingsfunktion (j\) und jede Ideal-Funktion (k\):
+- [x] ~~**A-059 – Notation definieren.** Eindeutige Notation für x, Trainingsreihen, Ideal-Funktionen und Testpunkte festlegen.~~ Nachweis: docs/METHODOLOGY_AND_DESIGN.md, Abschnitt 1.
+- [x] ~~**A-060 – Auswahlkriterium definieren.** Die SSE-Formel für jede Trainings-/Ideal-Funktionskombination festlegen.~~ Nachweis: Abschnitt 2.1.
+- [x] ~~**A-061 – Auswahlregel definieren.** Jede Trainingsreihe unabhängig mit minimaler SSE auswählen; exakte Gleichstände deterministisch über die kleinste Funktionsnummer auflösen.~~ Nachweis: Abschnitt 2.1.
+- [x] ~~**A-062 – Maximalabweichung definieren.** Für jedes gewählte Paar die größte absolute Trainingsabweichung berechnen.~~ Nachweis: Abschnitt 2.1.
+- [x] ~~**A-063 – Testabweichung definieren.** Die absolute y-Abweichung eines Testpunkts zur ausgewählten Ideal-Funktion festlegen.~~ Nachweis: Abschnitt 2.2.
+- [x] ~~**A-064 – Zulässigkeitsregel definieren.** Ein Kandidat ist bei Abweichung kleiner oder gleich sqrt(2) mal Maximalabweichung zulässig; Gleichheit ist zulässig.~~ Nachweis: Abschnitt 2.2.
+- [x] ~~**A-065 – Mehrfachtrefferregel definieren.** Mehrere zulässige Kandidaten über die kleinste absolute Abweichung und anschließend die kleinste Funktionsnummer auflösen.~~ Nachweis: Abschnitt 2.2.
+- [x] ~~**A-066 – Nichttrefferregel definieren.** Nicht zuordenbare Punkte zählen und als unassigned erhalten, aber nicht in die vierfachspaltige Ergebnistabelle schreiben.~~ Nachweis: Abschnitt 2.2.
+- [x] ~~**A-067 – Vollständigkeitsinvariante definieren.** Zuordnungen plus Nichtzuordnungen müssen genau der Zahl eingelesener Testzeilen entsprechen.~~ Nachweis: Abschnitt 2.2.
+- [x] ~~**A-068 – Delta-Semantik definieren.** delta_y ist die nichtnegative absolute Abweichung; ein signierter Residuenwert ist höchstens intern ergänzend.~~ Nachweis: Abschnitt 1 und 2.2.
+- [x] ~~**A-069 – x-Matching definieren.** Nur identische gelieferte x-Werte vergleichen; keine Interpolation, Extrapolation oder Nächster-Nachbar-Ersetzung.~~ Nachweis: Abschnitt 2.2.
+- [x] ~~**A-070 – Zeilenweises Mapping definieren.** Testdaten über einen Iterator zeilenweise laden und unmittelbar auswerten.~~ Nachweis: Abschnitt 2.3 und 4.
+- [x] ~~**A-071 – Datenbankmodell festlegen.** Die drei Pflichttabellen mit den verlangten Fachspalten festlegen.~~ Nachweis: Abschnitt 3.
+- [x] ~~**A-072 – Zusatztabelle begründen.** selection_summary mit Auswahl-, SSE- und Schwellenwerten als Reproduzierbarkeitsnachweis festlegen.~~ Nachweis: Abschnitt 3.
+- [x] ~~**A-073 – Datenbanktypen und Constraints festlegen.** Numerische Spalten, eindeutiges x in Referenztabellen, SQLite-rowid für Ergebniszeilen und Transaktionsregel festlegen.~~ Nachweis: Abschnitt 3.
+- [x] ~~**A-074 – OOP-Verantwortlichkeiten festlegen.** Laden, Auswahl, Mapping, Persistenz, Visualisierung und Orchestrierung trennen.~~ Nachweis: Abschnitt 4.
+- [x] ~~**A-075 – Sinnvolle Vererbung festlegen.** BaseCSVLoader mit drei fachlich begründeten Spezialisierungen festlegen.~~ Nachweis: Abschnitt 4.1.
+- [x] ~~**A-076 – Exception-Hierarchie festlegen.** Gemeinsame Projektbasis und fachliche Unterklassen für Daten, Auswahl, Mapping, Persistenz und Visualisierung definieren.~~ Nachweis: Abschnitt 4.2.
+- [x] ~~**A-077 – Standard-Exceptions festlegen.** Datei-, Parser-, Typ-, Schlüssel- und SQLAlchemy-Fehler an Komponentengrenzen behandeln und fachlich übersetzen.~~ Nachweis: Abschnitt 4.2.
+- [x] ~~**A-078 – Transaktionsverhalten festlegen.** Erfolgreicher vollständiger Lauf oder Rollback; keine unvollständige Datenbank als Erfolg melden.~~ Nachweis: Abschnitt 3 und 4.2.
+- [x] ~~**A-079 – Visualisierungskonzept festlegen.** Vier vergleichbare Panels, testpunktbezogene Hover-Daten, unzugeordnete Punkte und Abweichungsdarstellung festlegen.~~ Nachweis: Abschnitt 5.
+- [x] ~~**A-080 – Teststrategie vor Code festlegen.** Unit-, Integrations-, End-to-End- und Reproduzierbarkeitstests mit In-Memory-Testdaten statt CSV-Fixtures definieren.~~ Nachweis: Abschnitt 6.
+- [x] ~~**A-081 – Architekturdiagramm entwerfen.** Datenfluss und Komponenten als Mermaid-Diagramm dokumentieren.~~ Nachweis: Abschnitt 4.
+- [x] ~~**A-082 – Designentscheidungen begründen.** Alternativen, Vorteile, Konsequenzen und Aufgabenbezug dokumentieren.~~ Nachweis: Abschnitt 7.
 
-  \[
-  SSE_{j,k}=\sum_{i=1}^{n}\left(t_j(x_i)-f_k(x_i)\right)^2
-  \]
-
-- [ ] **A-061 – Auswahlregel definieren.** Für jede Trainingsfunktion unabhängig (k_j^*=\arg\min_k SSE_{j,k}\). Bei exakt gleichem Minimum gewinnt deterministisch die kleinste Ideal-Funktionsnummer; die Regel wird dokumentiert und getestet.
-- [ ] **A-062 – Maximalabweichung definieren.** Für jedes ausgewählte Paar:
-
-  \[
-  d_{j,\max}=\max_i\left|t_j(x_i)-f_{k_j^*}(x_i)\right|
-  \]
-
-- [ ] **A-063 – Testabweichung definieren.** Für Testpunkt (p=(x,y)\) und ausgewählte Funktion (f_{k_j^*}\):
-
-  \[
-  d_j(p)=\left|y-f_{k_j^*}(x)\right|
-  \]
-
-- [ ] **A-064 – Zulässigkeitsregel definieren.** Ein Kandidat ist zulässig, wenn (d_j(p)\leq\sqrt{2}\,d_{j,\max}\). Gleichheit am Grenzwert gilt als zulässig.
-- [ ] **A-065 – Mehrfachtrefferregel definieren.** Erfüllt ein Testpunkt mehrere Grenzwerte, wird er der zulässigen Ideal-Funktion mit der kleinsten absoluten Abweichung zugeordnet; bei erneutem Gleichstand gewinnt die kleinste Funktionsnummer.
-- [ ] **A-066 – Nichttrefferregel definieren.** Erfüllt ein Punkt keinen Grenzwert, bleibt er unzugeordnet. Er wird gezählt und für die Analyse erhalten, aber nicht fälschlich in die vierspaltige Tabelle der erfolgreichen Zuordnungen geschrieben.
-- [ ] **A-067 – Vollständigkeitsinvariante definieren.** Anzahl zugeordnet + Anzahl nicht zugeordnet = Anzahl eingelesener Testpunkte; jeder Eingabepunkt wird genau einmal bewertet.
-- [ ] **A-068 – Delta-Semantik definieren.** `delta_y` speichert die nichtnegative absolute y-Abweichung. Ein optionaler signierter Residuenwert darf intern für Analysen verwendet werden, ersetzt aber nicht `delta_y`.
-- [ ] **A-069 – x-Matching definieren.** Funktionswerte werden ausschließlich am identischen x-Wert verglichen; keine Interpolation, Extrapolation oder Nächster-Nachbar-Ersetzung ohne neue fachliche Begründung.
-- [ ] **A-070 – Zeilenweises Mapping definieren.** `test.csv` wird über einen Iterator beziehungsweise in Ein-Zeilen-Schritten verarbeitet, sodass die offizielle Anforderung des line-by-line loading sichtbar erfüllt ist.
-- [ ] **A-071 – Datenbankmodell festlegen.** Pflichtschema:
-
-  - `training_data`: `x`, `y1`, `y2`, `y3`, `y4`
-  - `ideal_functions`: `x`, `y1` bis `y50`
-  - `test_results`: `x`, `y`, `delta_y`, `ideal_function`
-
-- [ ] **A-072 – Zusatztabelle begründen.** Optional `selection_summary` mit Trainingsfunktion, Ideal-Funktion, SSE, Maximalabweichung und Grenzwert; nur aufnehmen, wenn sie Reproduzierbarkeit und Analyse klar verbessert.
-- [ ] **A-073 – Datenbanktypen und Constraints festlegen.** Numerische Pflichtfelder, eindeutiges `x` nur in Training/Ideal, Transaktionen und definierte Tabellenneuerstellung bei einem sauberen Lauf.
-- [ ] **A-074 – OOP-Verantwortlichkeiten festlegen.** Laden/Validieren, Persistenz, Auswahl, Mapping, Visualisierung und Orchestrierung getrennt halten.
-- [ ] **A-075 – Sinnvolle Vererbung festlegen.** Abstrakte `BaseCSVLoader` mit gemeinsamem Pfad-, Schema- und Zahlencheck; spezialisierte `TrainingDataLoader`, `IdealFunctionLoader` und `TestDataLoader`. Vererbung darf nicht nur zur Pflichterfüllung existieren.
-- [ ] **A-076 – Exception-Hierarchie festlegen.** Gemeinsame eigene Basisklasse, darunter mindestens `DataValidationError`, `FunctionSelectionError`, `MappingError` und `PersistenceError`, soweit tatsächlich benötigt.
-- [ ] **A-077 – Standard-Exceptions festlegen.** Unter anderem `FileNotFoundError`, `ValueError`/`TypeError` und SQLAlchemy-Ausnahmen an geeigneten Grenzen behandeln; keine pauschalen `except Exception` ohne Wieder-Auslösen oder fachliche Übersetzung.
-- [ ] **A-078 – Transaktionsverhalten festlegen.** Entweder vollständiger erfolgreicher Datenbanklauf oder Rollback; keine halb befüllten Tabellen.
-- [ ] **A-079 – Visualisierungskonzept festlegen.** Vier vergleichbare Panels mit Trainingsreihe, ausgewählter Ideal-Funktion und zugeordneten Testpunkten; nicht zugeordnete Punkte und Abweichungen in einer logisch lesbaren Form ergänzen.
-- [ ] **A-080 – Teststrategie vor Code festlegen.** Unit-Tests für Regeln, Integrationstests für Datenbank und gelieferten Datensatz, End-to-End-Test für den CLI-Lauf.
-- [ ] **A-081 – Architekturdiagramm entwerfen.** Datenfluss von CSV über Validierung, Auswahl/Mapping und SQLite bis Bokeh; nur Komponenten aufnehmen, die im Code existieren.
-- [ ] **A-082 – Designentscheidungen begründen.** Für jede wesentliche Entscheidung Alternative, Vorteil, Nachteil und Bezug zur Aufgabe dokumentieren.
-
-**Abnahme Phase 4:** Formeln, Randfälle, Datenbank, Klassenverantwortlichkeiten, Vererbung, Exceptions, Visualisierung und Teststrategie sind vor dem Produktivcode schriftlich definiert.
+**Abnahme Phase 4: erledigt.** Formeln, Randfallregeln, Datenbank, Klassenverantwortlichkeiten, Vererbung, Exceptions, Visualisierung und Teststrategie sind vor dem Produktivcode verbindlich dokumentiert.
 
 ### Phase 5 – Anwendung in festgelegter Reihenfolge implementieren
 
@@ -654,3 +635,4 @@ Die Abgabe darf nicht erfolgen, solange mindestens einer dieser Punkte zutrifft:
 | 2026-09-03 | Phase-1-Baseline validiert | frische virtuelle Umgebung, pytest, Ruff und Paketimport | A-033 erledigt; technische Basis nachweisbar lauffähig |
 | 2026-09-03 | Separate manuelle Datenprüfung entfernt | ausdrückliche Nutzerentscheidung „Der Datensatz ist korrekt“ | Datenvertrag statt Audit; A-035 bis A-042 und A-046 bewusst gestrichen |
 | 2026-09-03 | Quellenmatrix angelegt und verifiziert | `docs/SOURCE_MATRIX.md` | Phase 3 erledigt; Quellen- und Fundstellenkontrollen vor dem Volltextentwurf verfügbar |
+| 2026-09-03 | Methodik und Systemdesign festgelegt | `docs/METHODOLOGY_AND_DESIGN.md` | Phase 4 erledigt; Implementierung folgt festgelegten Regeln und Verantwortlichkeiten |
