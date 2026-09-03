@@ -10,7 +10,7 @@ from bokeh.plotting import figure, save
 from bokeh.resources import CDN
 
 from .exceptions import VisualizationError
-from .models import MappedPoint, MappingReport, SelectionResult
+from .models import MappedPoint, MappingReport, SelectionResult, TestPoint
 
 
 class BokehVisualizer:
@@ -56,6 +56,7 @@ class BokehVisualizer:
                     ideal_functions,
                     selection,
                     mapping_report.assignments,
+                    mapping_report.unassigned_points,
                     colour,
                 )
                 for selection, colour in zip(selected, self._colours, strict=True)
@@ -88,6 +89,7 @@ class BokehVisualizer:
         ideal_functions: pd.DataFrame,
         selection: SelectionResult,
         assignments: tuple[MappedPoint, ...],
+        unassigned_points: tuple[TestPoint, ...],
         colour: str,
     ):
         """Build one independently scaled training/ideal/mapping comparison panel."""
@@ -144,6 +146,23 @@ class BokehVisualizer:
             alpha=0.85,
             legend_label="mapped test point",
         )
+        unassigned_source = ColumnDataSource(
+            {
+                "x": [point.x for point in unassigned_points],
+                "y": [point.y for point in unassigned_points],
+                "source_row": [point.source_row for point in unassigned_points],
+            }
+        )
+        unassigned_renderer = plot.scatter(
+            "x",
+            "y",
+            source=unassigned_source,
+            color="#6b7280",
+            marker="x",
+            size=7,
+            alpha=0.75,
+            legend_label="unassigned test point",
+        )
         plot.add_tools(
             HoverTool(
                 renderers=[mapped_renderer],
@@ -154,6 +173,12 @@ class BokehVisualizer:
                     ("ideal function", "@ideal_function"),
                     ("threshold", "@threshold"),
                 ],
+            )
+        )
+        plot.add_tools(
+            HoverTool(
+                renderers=[unassigned_renderer],
+                tooltips=[("x", "@x"), ("test y", "@y"), ("source row", "@source_row")],
             )
         )
         plot.legend.location = "top_left"

@@ -25,4 +25,5 @@ def test_bokeh_html_contains_comparison_and_deviation_evidence(
     assert "Unassigned test points:" in html
     assert "training y1" in html
     assert "ideal y13" in html
+    assert "unassigned test point" in html
     assert "absolute delta_y" in html
