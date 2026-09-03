@@ -26,6 +26,7 @@ Statuskonvention:
 | Phase 4 | erledigt | `docs/METHODOLOGY_AND_DESIGN.md` mit Regeln, Architektur und Teststrategie. |
 | Phase 5 | erledigt | Implementierung in Commit `7e0afa9`; offizieller Lauf, SQLite, Bokeh und JSON-Zusammenfassung erfolgreich. |
 | Phase 6 | erledigt | 28 Tests, 88 % Gesamt-Zeilenabdeckung, Ruff ohne Befund sowie erfolgreicher Neuinstallations- und CLI-Lauf im frischen Klon. |
+| Phase 7 | erledigt | Ergebnisnachweispaket in Commit `3c561df`: Analysemanifest, SQL-Prüfung, Ergebnistabellen und zwei statische SVG-Abbildungen. |
 
 Änderungen an Anforderungen werden in diesem Dokument nachvollziehbar festgehalten. Anforderungen dürfen nicht stillschweigend entfallen. Bei einem Konflikt gilt folgende Reihenfolge:
 
@@ -287,18 +288,18 @@ Die Abgabe ist erst fertig, wenn alle folgenden Bedingungen gleichzeitig erfüll
 
 ### Phase 7 – Finale Ergebnisse, Tabellen und Abbildungen erzeugen
 
-- [ ] **A-129 – Finalen Analyselauf kennzeichnen.** Commit-ID, Python-/Paketversionen, Datensatz-Hash und Zeitpunkt dokumentieren.
-- [ ] **A-130 – Finale SQLite-Datei prüfen.** Tabellen mit SQL-Abfragen kontrollieren; Zeilenzahlen und Stichproben gegen Python-Ergebnisse vergleichen.
-- [ ] **A-131 – Ergebnistabelle exportieren.** Gewählte Funktionen, SSE, maximale Abweichungen und Grenzwerte mit sinnvoller Rundung; Berechnung intern ungerundet lassen.
-- [ ] **A-132 – Mapping-Ergebnis zusammenfassen.** Anzahl/Anteil zugeordnet und nicht zugeordnet sowie Verteilung über die vier Ideal-Funktionen berichten.
-- [ ] **A-133 – Ausreißer und Grenzfälle inspizieren.** Punkte nahe Grenzwert, größtes `delta_y` und Mehrfachtreffer fachlich prüfen.
-- [ ] **A-134 – Visualisierung auf Vollständigkeit prüfen.** Jede Trainingsreihe, jede gewählte Ideal-Funktion, sämtliche Testpunkte beziehungsweise deren Status und die Abweichung sind logisch repräsentiert.
-- [ ] **A-135 – Statische Abbildungen exportieren.** Scharf, lesbare Schrift, keine abgeschnittenen Legenden, angemessene Farben auch bei Graustufen/Farbsehschwäche.
-- [ ] **A-136 – Abbildungsquellen vorbereiten.** Für selbst erzeugte Darstellungen `Source: Own representation.` beziehungsweise bei Datenbezug eine konsistente, zutreffende Formulierung verwenden.
-- [ ] **A-137 – Keine Ergebnisübertreibung.** Ergebnisse auf diesen Datensatz und das vorgeschriebene Kriterium begrenzen; den `sqrt(2)`-Faktor nicht als statistisches Konfidenzmaß darstellen.
-- [ ] **A-138 – Ergebnis-Nachweispaket einfrieren.** Finale Tabellen, Abbildungen, Testbericht und Laufprotokoll für die Schreibphase versionieren.
+- [x] ~~**A-129 – Finalen Analyselauf kennzeichnen.** Commit-ID, Python-/Paketversionen, Datensatz-Hash und Zeitpunkt dokumentieren.~~ Nachweis: `docs/evidence/analysis_manifest.json`; Analyse-Commit `2102504779f95d4ca479d8ec9e1f3e942bc1aa57`, Python 3.12.13, Paket 0.1.0, SHA-256 des Archivs `829d…c45ed4`, Zeitpunkt 2026-09-03T13:54:24Z.
+- [x] ~~**A-130 – Finale SQLite-Datei prüfen.** Tabellen mit SQL-Abfragen kontrollieren; Zeilenzahlen und Stichproben gegen Python-Ergebnisse vergleichen.~~ Nachweis: `docs/evidence/sqlite_verification.md`; SQL-Zählungen 400/400/4/34 und `selection_summary` exakt gleich den In-Memory-Ergebnissen.
+- [x] ~~**A-131 – Ergebnistabelle exportieren.** Gewählte Funktionen, SSE, maximale Abweichungen und Grenzwerte mit sinnvoller Rundung; Berechnung intern ungerundet lassen.~~ Nachweis: `docs/evidence/selected_functions.csv`; y13, y24, y36 und y40 mit zehn Nachkommastellen, Berechnungen in `SelectionResult` ungerundet.
+- [x] ~~**A-132 – Mapping-Ergebnis zusammenfassen.** Anzahl/Anteil zugeordnet und nicht zugeordnet sowie Verteilung über die vier Ideal-Funktionen berichten.~~ Nachweis: `docs/evidence/mapping_summary.csv`; y13: 8, y24: 9, y36: 10, y40: 7; insgesamt 34 % zugeordnet und 66 % nicht zugeordnet.
+- [x] ~~**A-133 – Ausreißer und Grenzfälle inspizieren.** Punkte nahe Grenzwert, größtes `delta_y` und Mehrfachtreffer fachlich prüfen.~~ Nachweis: `docs/evidence/boundary_cases.csv`; die größte zugeordnete Abweichung und der kleinste Randabstand liegen in Quellzeile 11 bei y24 (`delta_y=0.665244`, Restabstand 0.040449). Der einzige Mehrfachtreffer ist Quellzeile 51 und wird korrekt y24 zugeordnet.
+- [x] ~~**A-134 – Visualisierung auf Vollständigkeit prüfen.** Jede Trainingsreihe, jede gewählte Ideal-Funktion, sämtliche Testpunkte beziehungsweise deren Status und die Abweichung sind logisch repräsentiert.~~ Nachweis: interaktives Bokeh-HTML enthält nun auch `unassigned test point`; `docs/evidence/figures/selected_functions_and_mapping.svg` zeigt alle vier Vergleichspaare und den Status, `assigned_deviations.svg` die Abweichungen und Grenzwerte.
+- [x] ~~**A-135 – Statische Abbildungen exportieren.** Scharf, lesbare Schrift, keine abgeschnittenen Legenden, angemessene Farben auch bei Graustufen/Farbsehschwäche.~~ Nachweis: skalierbare SVG-Dateien `docs/evidence/figures/selected_functions_and_mapping.svg` und `assigned_deviations.svg`; feste ViewBox, Textlegende, unterschiedliche Linienarten und Marker sowie kontrastreiche Okabe-Ito-Farben.
+- [x] ~~**A-136 – Abbildungsquellen vorbereiten.** Für selbst erzeugte Darstellungen `Source: Own representation.` beziehungsweise bei Datenbezug eine konsistente, zutreffende Formulierung verwenden.~~ Nachweis: beide SVGs enthalten `Source: Own representation based on the provided dataset.`
+- [x] ~~**A-137 – Keine Ergebnisübertreibung.** Ergebnisse auf diesen Datensatz und das vorgeschriebene Kriterium begrenzen; den `sqrt(2)`-Faktor nicht als statistisches Konfidenzmaß darstellen.~~ Nachweis: `analysis_manifest.json`, Feld `interpretation_guardrail`; die Exportartefakte beschreiben ausschließlich die bereitgestellten Daten und die vorgeschriebene Regel.
+- [x] ~~**A-138 – Ergebnis-Nachweispaket einfrieren.** Finale Tabellen, Abbildungen, Testbericht und Laufprotokoll für die Schreibphase versionieren.~~ Nachweis: Commit `3c561df`; Tabellen, SVGs, SQLite-Prüfung, Manifest mit Artefakt-Hashes sowie der dokumentierte grüne Testlauf aus Phase 6 sind im Repository verfügbar.
 
-**Abnahme Phase 7:** Jede Zahl und jede Abbildung der Arbeit lässt sich auf einen eindeutig dokumentierten Programmlauf zurückführen.
+**Abnahme Phase 7: erledigt.** Jede Zahl und jede Abbildung der Arbeit lässt sich auf den im Manifest dokumentierten Programmlauf zurückführen.
 
 ### Phase 8 – Dokumentgerüst und Vorseiten erstellen
 
@@ -640,3 +641,4 @@ Die Abgabe darf nicht erfolgen, solange mindestens einer dieser Punkte zutrifft:
 | 2026-09-03 | Methodik und Systemdesign festgelegt | `docs/METHODOLOGY_AND_DESIGN.md` | Phase 4 erledigt; Implementierung folgt festgelegten Regeln und Verantwortlichkeiten |
 | 2026-09-03 | Phase-5-Anwendung implementiert und ausgeführt | Commit `7e0afa9`; offizielles versioniertes Archiv | Phase 5 erledigt: SQLite, Bokeh, JSON-Zusammenfassung und CLI erzeugen die verifizierten Ergebnisse y13/y24/y36/y40 sowie 34/66 Zuordnungen |
 | 2026-09-03 | Phase-6-Abnahme ausgeführt | Commit `07ce14e`; 28 Tests, Coverage, Ruff und frischer Klon | Phase 6 erledigt; A-105 bis A-128 mit konkreten Test- und Ausführungsnachweisen aktualisiert |
+| 2026-09-03 | Phase-7-Ergebnisnachweispaket eingefroren | Commit `3c561df`; Manifest, SQL-Prüfung, Tabellen und SVG-Abbildungen | Phase 7 erledigt; alle berichteten Zahlen und Abbildungen sind auf Analyse-Commit `2102504` zurückführbar |
